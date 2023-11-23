@@ -1,0 +1,41 @@
+package com.promineotech;
+
+import java.util.Random;
+
+public class TestDemo {
+
+	public int addPositive(int a, int b) {
+
+		int total = a + b;
+		if (a > 0 && b > 0) {
+			return total;
+
+		} else {
+
+			throw new IllegalArgumentException("Both parameters must be positive!");
+
+		}
+
+	}
+	// below is my method
+	public int multiplyPositive(int y, int z) {
+		int product = y * z;
+		if(y > 0 && z > 0) {
+			return product;
+			
+		} else {
+			throw new IllegalArgumentException("Positive parameters only!");
+		}
+	}
+	//
+	int randomNumberSquared() {
+		int randomNumber = getRandomInt();
+		return randomNumber * randomNumber;
+	}
+	// this method uses the Random class to generate a number between 1 and 10
+	int getRandomInt() {
+	  	Random random = new Random();
+	 return random.nextInt(10) + 1;
+	}
+
+}

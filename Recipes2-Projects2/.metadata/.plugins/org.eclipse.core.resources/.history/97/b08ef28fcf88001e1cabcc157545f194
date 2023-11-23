@@ -1,0 +1,28 @@
+package com.promineotech;
+
+public class TestDemo {
+
+	public int addPositive(int a, int b) {
+
+		int total = a + b;
+		if (a > 0 && b > 0) {
+			return total;
+
+		} else {
+
+			throw new IllegalArgumentException("Both parameters must be positive!");
+
+		}
+
+	}
+	// below is my method
+	public int multiplyPositive(int y, int z) {
+		int product = y * z;
+		if(y > 0 && z > 0) {
+			return product;
+			
+		} else {
+			throw new IllegalArgumentException("Positive parameters only!");
+		}
+	}
+}

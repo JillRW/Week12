@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;prepMinutes&apos; in &apos;recipes2.Recipes2.minutesToLocalTime(...)&apos; to &apos;numMinutes&apos;&#x0D;&#x0A;- Original project: &apos;mysql-java-recipes2&apos;&#x0D;&#x0A;- Original element: &apos;recipes2.Recipes2.minutesToLocalTime(Integer).prepMinutes&apos;&#x0D;&#x0A;- Renamed element: &apos;prepMinutes&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;prepMinutes&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;recipes2{Recipes2.java[Recipes2~minutesToLocalTime~QInteger;@prepMinutes!1658!1676!1666!1676!QInteger;!0!true" name="numMinutes" references="true" stamp="1699144045873" version="1.0"/>
+</session>

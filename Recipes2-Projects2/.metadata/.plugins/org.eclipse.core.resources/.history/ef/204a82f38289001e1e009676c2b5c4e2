@@ -1,0 +1,103 @@
+package com.promineotech;
+
+
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
+// created JUnit test case
+class TestDemoJUnitTest {
+	private TestDemo testDemo; // created instance variable of type TestDemo
+
+	@BeforeEach
+	void setUp() throws Exception {
+		testDemo = new TestDemo(); //created new TestDemo object to be created before each test
+	}
+
+	@ParameterizedTest // created test with 4 parameters to check if the numbers were added correctly
+	@MethodSource("com.promineotech.TestDemoJUnitTest#argumentsForAddPositive")//class name of the test followed by the method containing the parameters
+	void assertThatTwoPositiveNumbersAreAddedCorrectly(int a, int b, int expected, boolean expectException) {
+		if(!expectException) {
+		      assertThat(testDemo.addPositive(a, b)).isEqualTo(expected); // if numbers positive, do not expect an exception
+		} else {
+			assertThatThrownBy(()-> testDemo.addPositive(a, b)).isInstanceOf(IllegalArgumentException.class); // else an IllegalArgumentException will be thrown( test will fail?)
+		}
+
+	}// this method should return a stream of arguments
+	static Stream <Arguments> argumentsForAddPositive() {
+		return Stream.of(
+				//when testing for incorrect values ( negatives and 0's), do the first 2 parameters need to add up to the 3rd parameter? Or does it not matter?
+				// each parameter should be wrapped in an arguments method call
+				arguments(1, 3, 4, false)
+//				arguments(-1, 0, -1, true)
+//				arguments(5, 1, 6, false)
+//				arguments(2, -5, -4, true),
+//				arguments(0, 1, 3, true),
+//				arguments(8, -3, 10, true)
+				);
+	}
+	
+	@Test // addPositive method test using @test
+	// how would an exception get thrown if only testing for correct values/parameters?
+	// uses assertThat to check that the numbers added in addPositive are added correctly
+	void assertThatPairsOfPositiveNumbersAreAddedCorrectly() {
+		assertThat(testDemo.addPositive(4,5)).isEqualTo(9);
+		assertThat(testDemo.addPositive(40,50)).isEqualTo(90);
+		assertThat(testDemo.addPositive(2,4)).isEqualTo(6);
+		assertThat(testDemo.addPositive(10, 11)).isEqualTo(21);
+		assertThat(testDemo.addPositive(3, 5)).isEqualTo(8);
+		assertThat(testDemo.addPositive(24,25)).isEqualTo(49);
+		
+	}
+	
+	// below is my JUnit test for multiplyPositive
+	// I used @ParameterizedTest to make sure the 1st 2 parameters are even and multiplied correctly
+	// the test will throw an IllegalArgumentException if the numbers are not positive, or are have the wrong result in the 3rd parameter
+	@ParameterizedTest
+	@MethodSource("com.promineotech.TestDemoJUnitTest#argumentsForMultiplyPositive")
+	void assertThatTwoPositiveNumbersAreMultipliedCorrectly(int a, int b, int expected, boolean expectException) {
+		if(!expectException) {
+		      assertThat(testDemo.multiplyPositive(a, b)).isEqualTo(expected);
+		} else {
+			assertThatThrownBy(()-> testDemo.multiplyPositive(a, b)).isInstanceOf(IllegalArgumentException.class);
+		}
+
+	}
+	static Stream <Arguments> argumentsForMultiplyPositive() {
+		return Stream.of(
+				// should the 1st 2 parameters always have the correct product in the 3rd parameter, weather or not they are 0 or negative?  Or does it not matter?
+				arguments(1, 3, 3, false),
+				arguments(-1, 0, 0, true),
+				arguments(5, 1, 5, false),
+				arguments(2, -5, -10, true),
+				arguments(0, 1, 0, true),
+				arguments(8, -3, -24, true)
+				);
+	}
+	
+	@Test
+	//using Mockito.spy to mock the TestDemo class in a new method
+	//created a mock of TestDemo, named mockDemo with a value of spy(testDemo)
+	//programmed the mocked TestDemo object to return '5' when getRandomInt() is called so I would have a value to test
+	// set a new int (fiveSqaured) equal to randomNumberSquared(which will call getRandomInt, now 5) called on mockDemo 
+	// used assertThat to show that the value of randomNumberSquared is equal to 25 (assigned to fiveSquared for the test)
+	void assertThatNumberSquaredIsCorrect() {
+		TestDemo mockDemo = spy(testDemo);
+		doReturn(5).when(mockDemo).getRandomInt();
+		int fiveSquared = mockDemo.randomNumberSquared();
+		assertThat(fiveSquared).isEqualTo(25);
+	}
+	
+
+}
